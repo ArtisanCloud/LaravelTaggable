@@ -1,0 +1,28 @@
+{
+    "name": "artisan-cloud/laravel-taggable",
+    "description": "This package is a tool to help tag any object",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "michael hu",
+            "email": "hbj148@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "ArtisanCloud\\Taggable\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ArtisanCloud\\Taggable\\Test": "tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.2"
+    }
+}
