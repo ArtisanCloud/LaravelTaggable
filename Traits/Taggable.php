@@ -2,6 +2,7 @@
 
 namespace ArtisanCloud\Taggable\Traits;
 
+use ArtisanCloud\Taggable\Models\Tag;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -37,8 +38,8 @@ trait Taggable
     public function tags(): MorphToMany
     {
         return $this
-            ->morphToMany(self::getTagClassName(), 'taggable')
-            ->ordered();
+            ->morphToMany(self::getTagClassName(), 'taggable');
+//            ->ordered();
     }
 
     /**
@@ -52,8 +53,8 @@ trait Taggable
             ->morphToMany(self::getTagClassName(), 'taggable')
             ->select('*')
             ->selectRaw("JSON_UNQUOTE(JSON_EXTRACT(name, '$.\"{$locale}\"')) as name_translated")
-            ->selectRaw("JSON_UNQUOTE(JSON_EXTRACT(slug, '$.\"{$locale}\"')) as slug_translated")
-            ->ordered();
+            ->selectRaw("JSON_UNQUOTE(JSON_EXTRACT(slug, '$.\"{$locale}\"')) as slug_translated");
+//            ->ordered();
     }
 
     /**
@@ -144,8 +145,8 @@ trait Taggable
      */
     public function attachTags($tags, string $type = null)
     {
-        $className = static::getTagClassName();
 
+        $className = static::getTagClassName();
         $tags = collect($className::findOrCreate($tags, $type));
 
         $this->tags()->syncWithoutDetaching($tags->pluck('id')->toArray());

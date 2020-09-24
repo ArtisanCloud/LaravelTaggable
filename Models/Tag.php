@@ -14,7 +14,11 @@ class Tag extends Model
 {
     use HasFactory;
 
+    protected $connection = 'pgsql';
+    const TABLE_NAME = 'tags';
+
     public $guarded = [];
+    public $hidden = ['id'];
 
     public function scopeWithType(Builder $query, string $type = null): Builder
     {
@@ -83,20 +87,23 @@ class Tag extends Model
         $tag = static::findFromString($name, $type, $locale);
 
         if (! $tag) {
+            $tagName = json_encode([$locale => $name]);
             $tag = static::create([
-                'name' => [$locale => $name],
+                'name' => $tagName,
+                'slug' => $tagName,
                 'type' => $type,
             ]);
         }
+//        dd($tag);
 
         return $tag;
     }
 
     public function setAttribute($key, $value)
     {
-        if ($key === 'name' && ! is_array($value)) {
-            return $this->setTranslation($key, app()->getLocale(), $value);
-        }
+//        if ($key === 'name' && ! is_array($value)) {
+//            return $this->setTranslation($key, app()->getLocale(), $value);
+//        }
 
         return parent::setAttribute($key, $value);
     }
