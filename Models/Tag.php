@@ -5,7 +5,9 @@ namespace ArtisanCloud\Taggable\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection as DbCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\Translatable\HasTranslations;
@@ -19,6 +21,7 @@ class Tag extends Model
 
     public $guarded = [];
     public $hidden = ['id'];
+
 
     public function scopeWithType(Builder $query, string $type = null): Builder
     {
